@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Opoli 2027 — Rivers West Senate campaign site
 
-## Getting Started
+Campaign website for **Rev. Hon. Amb. Mrs Aneni Opoli Inyamoyio**, Democratic Leadership Alliance (DLA)
+candidate for Rivers West Senatorial District. Election day: **Saturday, 16 January 2027**.
 
-First, run the development server:
+Built with Next.js 16 (App Router), Tailwind CSS v4 and Motion.
+
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Where things live
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Path | What |
+| --- | --- |
+| `src/content/campaign.ts` | All campaign copy, dates, LGAs, gallery list — edit text here |
+| `src/components/sections/` | One file per page section |
+| `src/app/api/volunteer/route.ts` | Volunteer sign-up endpoint |
+| `public/img/` | Web-optimised images (generated) |
+| `public/downloads/` | Full-resolution flyers offered for download |
+| `scripts/process-assets.mjs` | Regenerates `public/img` and `public/downloads` from the raw flyers |
 
-## Learn More
+## Updating artwork
 
-To learn more about Next.js, take a look at the following resources:
+Drop new flyers into the asset folder and run:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+ASSET_DIR="path/to/campaign asset" node scripts/process-assets.mjs
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Then add the new file to `gallery` in `src/content/campaign.ts`.
 
-## Deploy on Vercel
+## Volunteer sign-ups
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+In development, sign-ups are appended to `.data/volunteers.jsonl` (git-ignored). That file does not
+persist on serverless hosts — connect `persist()` in `src/app/api/volunteer/route.ts` to a database,
+Google Sheet or CRM before launch.
