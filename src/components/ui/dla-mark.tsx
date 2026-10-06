@@ -9,7 +9,7 @@ type Props = {
   className?: string;
 };
 
-/** The DLA gold-pen mark, optionally on the white tile the flyers use. */
+/** The Democratic Leadership Alliance gold-pen mark, optionally on the white tile the flyers use. */
 export function DlaMark({ size = 44, tile = true, withName, tone = "dark", className = "" }: Props) {
   const mark = (
     <span
@@ -18,11 +18,11 @@ export function DlaMark({ size = 44, tile = true, withName, tone = "dark", class
     >
       <Image
         src="/img/dla-logo.png"
-        alt={`${party.name} (${party.short}) logo`}
+        alt={`${party.name} logo`}
         width={312}
         height={312}
         className="h-[88%] w-[88%] object-contain"
-        priority
+        loading="eager"
       />
     </span>
   );

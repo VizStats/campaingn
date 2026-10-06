@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* DLA palette — sampled from the official campaign flyers */
+/* Democratic Leadership Alliance palette — sampled from the official campaign flyers */
 @theme {
   --color-green-950: #041f10;
   --color-green-900: #06331a;
@@ -8,6 +8,7 @@
   --color-green-700: #0b5d2c;
   --color-green-500: #1f9a4c;
   --color-green-300: #7fd19c;
+  --color-gold-700: #9a6206;
   --color-gold-600: #c9800f;
   --color-gold-500: #e0971a;
   --color-gold-400: #f2b519;
@@ -19,9 +20,9 @@
   --color-ink: #0d0f0c;
   --color-mute: #5d6259;
 
-  --font-display: var(--font-bebas), "Arial Narrow", sans-serif;
-  --font-sans: var(--font-poppins), system-ui, sans-serif;
-  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-display: var(--font-archivo), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-public-sans), system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), Georgia, serif;
 
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -52,10 +53,13 @@ body {
 
 /* Component classes live in a layer so Tailwind utilities can still override them */
 @layer components {
-  /* Poster headings: Bebas has tall caps, tighten the leading */
+  /* Poster headings: Archivo, condensed + extra bold, always caps */
   .font-display {
-    line-height: 0.86;
-    letter-spacing: 0.005em;
+    font-stretch: 72%;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 0.9;
+    letter-spacing: -0.01em;
   }
 
   /* Paper grain — keeps big flat colour blocks from looking like vectors */

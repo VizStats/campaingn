@@ -3,17 +3,18 @@
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import { Countdown } from "@/components/ui/countdown";
-import { candidate } from "@/content/campaign";
+import { ArrowDown } from "lucide-react";
+import { candidate, party } from "@/content/campaign";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-function Line({ children, delay }: { children: React.ReactNode; delay: number }) {
+/** A line of type that slides up out of a mask. */
+function MaskLine({ children, delay, className }: { children: React.ReactNode; delay: number; className?: string }) {
   const reduce = useReducedMotion();
   return (
     <span className="block overflow-hidden pb-[0.04em]">
       <motion.span
-        className="block"
+        className={`block ${className ?? ""}`}
         initial={reduce ? false : { y: "105%" }}
         animate={{ y: 0 }}
         transition={{ duration: 1, delay, ease }}
@@ -24,78 +25,95 @@ function Line({ children, delay }: { children: React.ReactNode; delay: number })
   );
 }
 
+/**
+ * "Poster" hero: her full name runs large across the top, she stands at the right in front of it,
+ * and a party-gold floor runs the full width along the bottom carrying the write-up.
+ * A horizontal split — the network sites use vertical ones.
+ */
 export function Hero() {
+  const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
+  const portraitY = useTransform(scrollYProgress, [0, 1], ["0%", "6%"]);
+
+  const enter = (delay: number) => ({
+    initial: reduce ? false : { opacity: 0, y: 12 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.9, delay, ease },
+  });
 
   return (
-    <section id="top" ref={ref} className="relative -mt-[4.5rem] overflow-hidden pt-[4.5rem]">
-      <div className="relative mx-auto grid max-w-[1400px] items-center gap-12 px-5 pb-16 pt-8 sm:px-8 lg:grid-cols-12 lg:gap-8 lg:pb-14 lg:pt-12">
-        {/* Copy */}
-        <div className="relative z-10 lg:col-span-7">
-          <motion.p
-            className="text-[0.95rem] font-medium text-green-700"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            DLA candidate for the Senate, 2027
-          </motion.p>
+    <section ref={ref} id="top" className="relative -mt-[4.5rem] overflow-hidden bg-paper text-ink lg:min-h-[100svh]">
+      {/* Gold floor (desktop): sweeps in from the left */}
+      <motion.div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 hidden h-[34%] origin-left bg-gold-400 lg:block"
+        initial={reduce ? false : { scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 1.1, ease }}
+      />
 
-          <h1 className="mt-5 font-display text-[clamp(3.6rem,8.2vw,7.6rem)] uppercase">
-            <Line delay={0.1}>
-              <span className="text-green-700">A stronger</span>
-            </Line>
-            <Line delay={0.2}>
-              <span className="text-gold-500">voice</span> <span className="text-ink">for</span>
-            </Line>
-            <Line delay={0.3}>
-              <span className="text-ink">Rivers West</span>
-            </Line>
-          </h1>
+      {/* Name */}
+      <div className="relative mx-auto max-w-[1400px] px-5 pt-28 sm:px-8 lg:pt-32">
+        <motion.p
+          className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-brown-700 sm:text-sm"
+          {...enter(0.15)}
+        >
+          <span aria-hidden className="h-[2px] w-8 bg-gold-500" />
+          {candidate.honorific}
+        </motion.p>
 
+        <h1 className="mt-5 font-display text-[17vw] leading-[0.88] lg:text-[clamp(6rem,11.5vw,11.5rem)]">
+          <MaskLine delay={0.25}>
+            {candidate.firstName} {candidate.middleName}
+          </MaskLine>
+          <MaskLine delay={0.4} className="text-brown-700">
+            {candidate.lastName}
+          </MaskLine>
+        </h1>
+      </div>
+
+      {/* Portrait: on phones it sits on its own strip of gold floor */}
+      <div className="relative mt-8 lg:static lg:mt-0">
+        <div aria-hidden className="absolute inset-x-0 bottom-0 h-[36%] bg-gold-400 lg:hidden" />
+        <motion.div
+          style={{ y: reduce ? 0 : portraitY }}
+          className="pointer-events-none relative z-10 mx-auto w-[min(80vw,400px)] lg:absolute lg:bottom-0 lg:right-[6%] lg:mx-0 lg:w-[min(34vw,520px,calc((100svh-6rem)/1.44))]"
+        >
           <motion.div
-            className="mt-10 border-l-[3px] border-gold-500 pl-5"
-            initial={{ opacity: 0, y: 12 }}
+            initial={reduce ? false : { opacity: 0, y: 36 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5, ease }}
+            transition={{ duration: 1.2, delay: 0.35, ease }}
           >
-            <p className="text-sm text-mute">{candidate.honorific}</p>
-            <p className="mt-1 text-2xl font-semibold tracking-tight text-ink sm:text-[1.75rem]">
-              {candidate.firstName} {candidate.middleName} {candidate.lastName}
-            </p>
-            <p className="mt-4 max-w-md text-[1.02rem] leading-relaxed text-ink/70">
-              Running for the Senate so Rivers West finally has someone who speaks up — for our young
-              people, for our women, and for everyone who has been left out.
-            </p>
+            <Image
+              src="/img/portrait-suit.webp"
+              alt={`${candidate.honorific} ${candidate.firstName} ${candidate.middleName} ${candidate.lastName}, ${party.name} candidate for ${candidate.district}`}
+              width={1000}
+              height={1440}
+              preload
+              sizes="(min-width: 1024px) 34vw, 80vw"
+              className="h-auto w-full"
+            />
           </motion.div>
-        </div>
+        </motion.div>
+      </div>
 
-        {/* Portrait */}
-        <div className="relative lg:col-span-5">
-          <motion.div
-            className="relative mx-auto w-full max-w-[460px] lg:ml-auto lg:mr-0"
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.1, ease, delay: 0.15 }}
-          >
-            <div className="relative aspect-[4/5] overflow-hidden bg-[#eef0ee]">
-              <motion.div style={{ y: imgY }} className="absolute inset-0 scale-[1.06]">
-                <Image
-                  src="/img/portrait-hero.jpg"
-                  alt={`${candidate.honorific} ${candidate.firstName} ${candidate.middleName} ${candidate.lastName}`}
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 460px, 92vw"
-                  className="object-cover object-[50%_8%]"
-                />
-              </motion.div>
-            </div>
-
-            <div className="relative -mt-16 ml-auto w-[min(94%,380px)] shadow-[0_24px_60px_-24px_rgba(6,51,26,.6)] sm:-mr-6">
-              <Countdown />
-            </div>
+      {/* Write-up on the gold floor */}
+      <div className="relative z-20 bg-gold-400 lg:absolute lg:inset-x-0 lg:bottom-0 lg:h-[34%] lg:bg-transparent">
+        <div className="mx-auto flex h-full max-w-[1400px] items-center px-5 py-10 sm:px-8 lg:py-0">
+          <motion.div className="lg:max-w-[48%]" {...enter(0.9)}>
+            <p className="text-[clamp(1.5rem,2.4vw,2.25rem)] font-semibold leading-[1.15] tracking-tight">
+              Competence, Integrity, and Service to the People.
+            </p>
+            <p className="mt-3 max-w-md text-[0.95rem] leading-relaxed text-ink/70">
+              {party.name} candidate for Senate, {candidate.district}.
+            </p>
+            <a
+              href="#agenda"
+              className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brown-900 underline decoration-brown-900/30 underline-offset-4 hover:decoration-brown-900"
+            >
+              What she stands for <ArrowDown size={15} />
+            </a>
           </motion.div>
         </div>
       </div>

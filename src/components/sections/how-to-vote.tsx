@@ -26,8 +26,8 @@ const steps = [
     body: "Polls open at 8:30am. An INEC official will check your PVC and fingerprint, then give you your Senate ballot.",
   },
   {
-    title: "Thumbprint DLA",
-    body: "Find the DLA logo — the gold pen. Press your inked thumb inside the box next to it, and nowhere else.",
+    title: "Thumbprint Democratic Leadership Alliance",
+    body: "Find the Democratic Leadership Alliance logo — the gold pen. Press your inked thumb inside the box next to it, and nowhere else.",
   },
   {
     title: "Stay for the result",
@@ -63,7 +63,7 @@ export function HowToVote() {
           <SectionLabel>How to vote</SectionLabel>
           <Reveal>
             <h2 className="mt-4 font-display text-[clamp(2.8rem,5vw,4.6rem)] uppercase">
-              Five steps on <span className="text-green-700">election day</span>
+              Five steps on <span className="text-gold-600">election day</span>
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
@@ -86,7 +86,7 @@ export function HowToVote() {
               >
                 <span
                   className={`grid h-10 w-10 place-items-center rounded-full text-sm font-semibold ${
-                    i === 3 ? "bg-gold-400 text-ink" : "bg-green-700 text-white"
+                    i === 3 ? "bg-gold-400 text-ink" : "bg-brown-900 text-white"
                   }`}
                 >
                   {i + 1}
@@ -99,7 +99,7 @@ export function HowToVote() {
                       href={s.link.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-green-700 underline decoration-green-700/30 underline-offset-4 hover:decoration-green-700"
+                      className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-brown-700 underline decoration-brown-700/30 underline-offset-4 hover:decoration-brown-700"
                     >
                       {s.link.label} <ArrowUpRight size={14} />
                     </a>
@@ -122,7 +122,7 @@ export function HowToVote() {
                   <thead>
                     <tr className="text-xs font-medium text-white">
                       <th className="bg-[#9b1c1c] py-2.5">Party</th>
-                      <th className="bg-green-900 py-2.5">Thumbprint</th>
+                      <th className="bg-brown-900 py-2.5">Thumbprint</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -131,21 +131,21 @@ export function HowToVote() {
                       const isMiss = miss === row;
                       return (
                         <tr key={row} className="h-[4.75rem]">
-                          <td className={`border border-green-900/50 ${isDla ? "bg-gold-200/30" : ""}`}>
+                          <td className={`border border-ink/25 ${isDla ? "bg-gold-200/30" : ""}`}>
                             {isDla ? (
-                              <Image src="/img/dla-logo.png" alt="DLA" width={312} height={312} className="mx-auto w-14" />
+                              <Image src="/img/dla-logo.png" alt="Democratic Leadership Alliance logo" width={312} height={312} className="mx-auto w-14" />
                             ) : (
                               <OtherParty />
                             )}
                           </td>
-                          <td className="relative border border-green-900/50 p-0">
+                          <td className="relative border border-ink/25 p-0">
                             <button
                               type="button"
                               onClick={() => stamp(row)}
                               className={`absolute inset-0 grid place-items-center transition-colors ${
-                                correct ? "cursor-default" : "hover:bg-green-700/5"
+                                correct ? "cursor-default" : "hover:bg-gold-200/30"
                               } ${isMiss ? "bg-red-50" : ""}`}
-                              aria-label={isDla ? "Thumbprint the DLA box" : "Thumbprint this box"}
+                              aria-label={isDla ? "Thumbprint the Democratic Leadership Alliance box" : "Thumbprint this box"}
                             >
                               <AnimatePresence>
                                 {(picked === row || isMiss) && (
@@ -188,7 +188,7 @@ export function HowToVote() {
                     </div>
                   ) : miss !== null ? (
                     <p className="bg-red-50 px-4 py-3 text-sm font-medium text-red-800">
-                      Not this one. Look for the DLA logo with the gold pen.
+                      Not this one. Look for the Democratic Leadership Alliance logo — the gold pen.
                     </p>
                   ) : null}
                 </div>

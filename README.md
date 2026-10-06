@@ -40,3 +40,32 @@ Then add the new file to `gallery` in `src/content/campaign.ts`.
 In development, sign-ups are appended to `.data/volunteers.jsonl` (git-ignored). That file does not
 persist on serverless hosts — connect `persist()` in `src/app/api/volunteer/route.ts` to a database,
 Google Sheet or CRM before launch.
+
+## SEO & launch settings
+
+Set these on the host, then redeploy:
+
+| Variable | Value |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | The live URL (defaults to `https://opoli-2027.vercel.app`) |
+| `NEXT_PUBLIC_ALLOW_INDEXING` | `true` when ready for Google. **Until then every page sends noindex and robots.txt blocks crawlers.** |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Code from Google Search Console (HTML-tag method) |
+
+Built in: title/description/keywords (`src/content/site.ts`), canonical URL, Open Graph + Twitter card
+with a generated share image (`src/app/opengraph-image.tsx`), `sitemap.xml`, `robots.txt`, web manifest,
+Rivers State geo tags, and JSON-LD (Person, PoliticalParty, WebSite, WebPage, election Event).
+
+## Campaign network
+
+Nine two-screen topic sites live next to this project in `Documents/` (`opoli-youth-jobs`,
+`opoli-women-empowerment`, `opoli-justice-voice`, `opoli-good-governance`, `opoli-vote-guide`,
+`opoli-rivers-west-lgas`, `opoli-volunteer`, `opoli-election-countdown`, `opoli-campaign-media`).
+The footer links to all of them and each links back here.
+
+Shared files — `src/content/facts.ts`, `network.ts`, `indexing.ts` — are edited **here only**, then copied out:
+
+```bash
+node scripts/sync-network.mjs
+```
+
+When real domains are bought, update the URLs in `src/content/network.ts`, sync, and redeploy all ten sites.

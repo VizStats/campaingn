@@ -9,11 +9,11 @@ const tones: Record<
   { card: string; num: string; muted: string; chip: string; img: string }
 > = {
   green: {
-    card: "bg-green-800 text-white",
-    num: "text-green-300/25",
+    card: "bg-brown-700 text-white",
+    num: "text-gold-400/25",
     muted: "text-white/75",
     chip: "bg-white/10 text-white ring-white/20",
-    img: "mix-blend-luminosity",
+    img: "",
   },
   gold: {
     card: "bg-gold-400 text-ink",
@@ -27,7 +27,7 @@ const tones: Record<
     num: "text-gold-400/20",
     muted: "text-white/70",
     chip: "bg-white/10 text-white ring-white/20",
-    img: "grayscale",
+    img: "",
   },
   ink: {
     card: "bg-ink text-white",
@@ -48,7 +48,7 @@ export function Agenda() {
           </div>
           <Reveal className="lg:col-span-7">
             <h2 className="font-display text-[clamp(3rem,6.5vw,6rem)] uppercase">
-              Her commitment to <span className="text-green-700">Rivers people</span>
+              Her commitment to <span className="text-gold-600">Rivers people</span>
             </h2>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink/70">
               Four promises, plainly stated. She refuses to see the tears of Rivers people again.
@@ -95,15 +95,17 @@ export function Agenda() {
                     </ul>
                   </div>
 
-                  <div className="relative min-h-[320px] md:col-span-5 md:min-h-[560px]">
-                    <Image
-                      src={c.image.src}
-                      alt=""
-                      fill
-                      sizes="(min-width: 768px) 40vw, 100vw"
-                      className={`object-cover ${t.img}`}
-                      style={{ objectPosition: c.image.position }}
-                    />
+                  <div className="relative min-h-[340px] md:col-span-5 md:min-h-[560px]">
+                    {/* Whole cut-out, standing on the bottom edge of the card */}
+                    <div className="absolute inset-x-6 bottom-0 top-8 sm:inset-x-10">
+                      <Image
+                        src={c.image.src}
+                        alt=""
+                        fill
+                        sizes="(min-width: 768px) 36vw, 90vw"
+                        className={`object-contain object-bottom ${t.img}`}
+                      />
+                    </div>
                   </div>
                 </article>
               </li>

@@ -5,7 +5,7 @@ export const candidate = {
   firstName: "Aneni",
   middleName: "Opoli",
   lastName: "Inyamoyio",
-  callName: "Rev. Ani Opoli",
+  callName: "Rev. Aneni Opoli",
   epithet: "The Light Carrier",
   office: "Senate",
   district: "Rivers West Senatorial District",
@@ -17,7 +17,6 @@ export const candidate = {
 
 export const party = {
   name: "Democratic Leadership Alliance",
-  short: "DLA",
   motto: "Leading with Courage, Serving with Integrity",
   registered: "Registered by INEC, 5 February 2026",
   site: "https://dlanigeria.org",
@@ -39,7 +38,8 @@ export type Commitment = {
   title: string;
   body: string[];
   points: string[];
-  image: { src: string; w: number; h: number; position?: string };
+  // Cut-out photos (transparent background), shown whole — never cropped.
+  image: { src: string; w: number; h: number };
   tone: "green" | "gold" | "brown" | "ink";
 };
 
@@ -50,10 +50,10 @@ export const commitments: Commitment[] = [
     title: "Jobs, not guns",
     body: [
       "She does not want to see our young people carrying guns and roaming the streets. Many are not criminals — they do it because of hardship and lack of jobs.",
-      "Rev. Ani Opoli will give them skills, empowerment and real jobs. She will turn wasted lives into useful lives.",
+      "Rev. Aneni Opoli will give them skills, empowerment and real jobs. She will turn wasted lives into useful lives.",
     ],
     points: ["Skills acquisition", "Youth empowerment", "Real, paying jobs"],
-    image: { src: "/img/portrait-green.jpg", w: 820, h: 1420, position: "50% 30%" },
+    image: { src: "/img/portrait-suit.webp", w: 1000, h: 1440 },
     tone: "green",
   },
   {
@@ -65,7 +65,7 @@ export const commitments: Commitment[] = [
       "She will make sure women are educated, skilled and empowered — so they can support their homes financially and build stronger families. Because when you build a woman, you build the future.",
     ],
     points: ["Access to education", "Vocational skills", "Financial independence"],
-    image: { src: "/img/portrait-gold.jpg", w: 900, h: 850, position: "60% 30%" },
+    image: { src: "/img/about-cutout.webp", w: 1000, h: 1440 },
     tone: "gold",
   },
   {
@@ -77,7 +77,7 @@ export const commitments: Commitment[] = [
       "She will not allow the rich to oppress the poor with their wealth. She will not allow the powerful to intimidate the weak.",
     ],
     points: ["Defend the oppressed", "Speak for the voiceless", "Stand up to intimidation"],
-    image: { src: "/img/portrait-mono.jpg", w: 810, h: 1420, position: "50% 25%" },
+    image: { src: "/img/portrait-suit.webp", w: 1000, h: 1440 },
     tone: "brown",
   },
   {
@@ -89,7 +89,7 @@ export const commitments: Commitment[] = [
       "Jobs, industries, healthcare, education and infrastructure that actually work for the people of Rivers West.",
     ],
     points: ["Jobs & industries", "Healthcare & education", "Working infrastructure"],
-    image: { src: "/img/portrait-green-attire.jpg", w: 644, h: 1000, position: "50% 25%" },
+    image: { src: "/img/about-cutout.webp", w: 1000, h: 1440 },
     tone: "ink",
   },
 ];
@@ -110,7 +110,7 @@ export const gallery = [
   { slug: "flyer-1", title: "Rivers West 2027", w: 1100, h: 1540 },
   { slug: "flyer-6", title: "A stronger voice", w: 1100, h: 1760 },
   { slug: "quote-1", title: "Built, not promised", w: 1100, h: 1100 },
-  { slug: "flyer-2", title: "Vote DLA — green", w: 1100, h: 1320 },
+  { slug: "flyer-2", title: "Vote — green", w: 1100, h: 1320 },
   { slug: "flyer-7", title: "How to vote", w: 1100, h: 1100 },
   { slug: "quote-2", title: "Every voice matters", w: 1100, h: 1100 },
   { slug: "flyer-3", title: "Hope for a better Rivers", w: 1100, h: 1320 },
@@ -130,4 +130,4 @@ export const helpOptions = [
 ] as const;
 
 export const shareText =
-  "Rivers West, the time has come. Vote Rev. Ani Opoli (DLA) for Senate — 16 January 2027. Competent. Vocal. Strong.";
+  "Rivers West, the time has come. Vote Rev. Aneni Opoli (Democratic Leadership Alliance) for Senate — 16 January 2027. Competent. Vocal. Strong.";

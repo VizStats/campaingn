@@ -5,18 +5,17 @@ import { candidate } from "@/content/campaign";
 
 export function About() {
   return (
-    <section id="about" className="bg-paper py-24 sm:py-28">
+    <section id="about" className="bg-paper pb-24 pt-40 sm:pb-28 sm:pt-44">
       <div className="mx-auto grid max-w-[1400px] items-center gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-16">
         <Reveal className="lg:col-span-5">
-          <div className="relative aspect-[4/5] overflow-hidden bg-cream">
-            <Image
-              src="/img/portrait-pink.jpg"
-              alt={`${candidate.callName} in traditional attire`}
-              fill
-              sizes="(min-width: 1024px) 40vw, 92vw"
-              className="object-cover object-[50%_20%]"
-            />
-          </div>
+          <Image
+            src="/img/about-cutout.webp"
+            alt={`${candidate.callName} in traditional attire`}
+            width={1000}
+            height={1440}
+            sizes="(min-width: 1024px) 420px, 80vw"
+            className="mx-auto h-auto w-full max-w-[420px]"
+          />
         </Reveal>
 
         <div className="lg:col-span-7">
@@ -25,7 +24,7 @@ export function About() {
             <h2 className="mt-4 font-display text-[clamp(2.8rem,5vw,4.6rem)] uppercase">
               Vote for competence.
               <br />
-              <span className="text-green-700">Vote for integrity.</span>
+              <span className="text-gold-600">Vote for integrity.</span>
             </h2>
           </Reveal>
 

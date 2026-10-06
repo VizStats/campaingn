@@ -65,11 +65,46 @@ function Roll({ value }: { value: string }) {
   );
 }
 
+/** Quiet one-line "N days to election day" for places that shouldn't compete for attention. */
+export function DaysLeft({ className }: { className?: string }) {
+  const now = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const t = now === null ? null : diff(now);
+  return (
+    <span className={className}>
+      <span className="tabular-nums">{t ? t.days : "–"}</span> days to election day
+    </span>
+  );
+}
+
+const themes = {
+  brown: {
+    card: "bg-brown-900 text-white",
+    sub: "text-white/60",
+    tile: "bg-white/[0.07]",
+    tileLabel: "text-white/55",
+    accent: "bg-gold-400 text-ink",
+    accentLabel: "text-ink/70",
+    track: "bg-white/10",
+    fill: "bg-gold-400",
+  },
+  gold: {
+    card: "bg-gold-400 text-ink",
+    sub: "text-ink/65",
+    tile: "bg-ink/[0.08]",
+    tileLabel: "text-ink/65",
+    accent: "bg-brown-900 text-gold-400",
+    accentLabel: "text-gold-200/80",
+    track: "bg-ink/15",
+    fill: "bg-brown-900",
+  },
+};
+
 /** Election-day countdown card. Renders dashes on the server to avoid a hydration mismatch. */
-export function Countdown() {
+export function Countdown({ tone = "brown" }: { tone?: keyof typeof themes }) {
   const now = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const t = now === null ? null : diff(now);
   const progress = now === null ? 0 : Math.min(1, Math.max(0, (now - START) / (TARGET - START)));
+  const th = themes[tone];
 
   const cells: { label: string; value: string; accent?: boolean }[] = [
     { label: "Days", value: t ? String(t.days) : "––", accent: true },
@@ -79,22 +114,19 @@ export function Countdown() {
   ];
 
   return (
-    <div className="bg-green-900 p-5 text-white sm:p-6" role="timer" aria-label="Countdown to election day">
+    <div className={`p-5 sm:p-6 ${th.card}`} role="timer" aria-label="Countdown to election day">
       <div className="flex items-baseline justify-between gap-3">
         <p className="text-sm font-semibold">Election day</p>
-        <p className="text-xs text-white/60">{election.label}</p>
+        <p className={`text-xs ${th.sub}`}>{election.label}</p>
       </div>
 
       <div className="mt-4 grid grid-cols-4 gap-1.5">
         {cells.map((c) => (
-          <div
-            key={c.label}
-            className={`flex flex-col items-center py-3 ${c.accent ? "bg-gold-400 text-ink" : "bg-white/[0.07]"}`}
-          >
+          <div key={c.label} className={`flex flex-col items-center py-3 ${c.accent ? th.accent : th.tile}`}>
             <span className="font-display text-[2.6rem] sm:text-5xl">
               <Roll value={c.value} />
             </span>
-            <span className={`mt-1.5 text-[0.62rem] font-medium ${c.accent ? "text-ink/70" : "text-white/55"}`}>
+            <span className={`mt-1.5 text-[0.62rem] font-medium ${c.accent ? th.accentLabel : th.tileLabel}`}>
               {c.label}
             </span>
           </div>
@@ -102,12 +134,12 @@ export function Countdown() {
       </div>
 
       <div className="mt-5">
-        <div className="flex justify-between text-[0.68rem] text-white/55">
+        <div className={`flex justify-between text-[0.68rem] ${th.sub}`}>
           <span>Campaign opened 19 Aug</span>
           <span suppressHydrationWarning>{Math.round(progress * 100)}% of the way there</span>
         </div>
-        <div className="mt-2 h-1 bg-white/10">
-          <div className="h-full bg-gold-400 transition-[width] duration-1000" style={{ width: `${progress * 100}%` }} />
+        <div className={`mt-2 h-1 ${th.track}`}>
+          <div className={`h-full transition-[width] duration-1000 ${th.fill}`} style={{ width: `${progress * 100}%` }} />
         </div>
       </div>
     </div>

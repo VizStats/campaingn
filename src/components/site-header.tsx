@@ -42,9 +42,9 @@ export function SiteHeader() {
           <a href="#top" className="flex items-center gap-3" aria-label="Back to top">
             <DlaMark size={42} />
             <span className="leading-none">
-              <span className="block font-display text-[1.45rem] tracking-wide">Ani Opoli</span>
-              <span className="block text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-mute">
-                Senate &rsquo;27 &middot; Rivers West
+              <span className="block font-display text-[1.45rem] tracking-wide">Aneni Opoli</span>
+              <span className="block text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-mute">
+                Democratic Leadership Alliance
               </span>
             </span>
           </a>
@@ -63,7 +63,13 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <a href="#join" className="btn hidden bg-green-700 text-white hover:bg-green-800 sm:inline-flex">
+            <a
+              href="#join"
+              className={`btn hidden sm:inline-flex ${
+                // over the hero's gold panel a gold button would disappear, so it starts brown
+                scrolled ? "bg-gold-400 text-ink hover:bg-gold-500" : "bg-brown-900 text-gold-200 hover:bg-brown-700"
+              }`}
+            >
               Join the movement
               <ArrowUpRight size={16} strokeWidth={2.4} />
             </a>
@@ -83,7 +89,7 @@ export function SiteHeader() {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-0 z-[60] flex flex-col bg-green-900 text-white"
+            className="fixed inset-0 z-[60] flex flex-col bg-brown-900 text-white"
             initial={{ clipPath: "inset(0 0 100% 0)" }}
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}

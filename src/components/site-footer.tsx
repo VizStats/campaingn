@@ -1,6 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { DlaMark } from "@/components/ui/dla-mark";
 import { candidate, election, party } from "@/content/campaign";
+import { NETWORK } from "@/content/network";
 
 const nav = [
   { href: "#about", label: "About" },
@@ -72,9 +73,23 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
+        {/* Campaign network — links to every topic site (internal linking for search engines) */}
+        <nav aria-label="Campaign network" className="mt-14 border-t border-white/10 pt-8">
+          <p className="label text-white/40">Campaign network</p>
+          <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2.5 text-sm">
+            {NETWORK.map((s) => (
+              <li key={s.key}>
+                <a href={s.url} className="text-white/75 hover:text-gold-400">
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            &copy; 2026 Authorised by the {candidate.callName} Campaign Organisation &middot; {party.short}
+            &copy; 2026 Authorised by the {candidate.callName} Campaign Organisation &middot; {party.name}
           </p>
           <p>{party.motto}.</p>
         </div>

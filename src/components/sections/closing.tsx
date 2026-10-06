@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Countdown } from "@/components/ui/countdown";
 import { Reveal } from "@/components/ui/reveal";
 import { candidate, election } from "@/content/campaign";
 
@@ -16,7 +17,7 @@ export function Closing() {
           <h2 className="mt-8 font-display text-[clamp(5rem,17vw,17rem)] uppercase">
             Liberty
             <br />
-            <span className="text-green-800">has come.</span>
+            <span className="text-brown-900">has come.</span>
           </h2>
         </Reveal>
 
@@ -34,17 +35,20 @@ export function Closing() {
           <Reveal delay={0.1} className="md:col-span-5 md:justify-self-end">
             <div className="flex items-stretch bg-white shadow-[0_20px_50px_-25px_rgba(13,15,12,.5)]">
               <div className="grid w-24 place-items-center p-2">
-                <Image src="/img/dla-logo.png" alt="DLA" width={312} height={312} className="w-full" />
+                <Image src="/img/dla-logo.png" alt="Democratic Leadership Alliance logo" width={312} height={312} className="w-full" />
               </div>
               <div className="flex flex-col justify-center bg-ink px-5 py-4 text-white">
-                <p className="font-display text-3xl leading-none">Thumbprint DLA</p>
+                <p className="font-display text-2xl leading-none">Democratic Leadership Alliance</p>
                 <p className="mt-1 text-xs text-white/70">
-                  Senate &middot; {candidate.districtShort} &middot; {election.label.replace("Saturday, ", "")}
+                  Thumbprint here &middot; Senate &middot; {candidate.districtShort} &middot; {election.label.replace("Saturday, ", "")}
                 </p>
               </div>
               <div className="grid w-20 place-items-center border-l border-ink/10">
                 <Image src="/img/thumbprint.png" alt="" width={216} height={276} className="h-12 w-auto -rotate-6" />
               </div>
+            </div>
+            <div className="mt-4 shadow-[0_20px_50px_-25px_rgba(13,15,12,.5)]">
+              <Countdown />
             </div>
           </Reveal>
         </div>

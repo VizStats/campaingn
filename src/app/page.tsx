@@ -3,6 +3,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { Hero } from "@/components/sections/hero";
 import { Ticker } from "@/components/sections/ticker";
 import { Light } from "@/components/sections/light";
+import { CountdownBridge } from "@/components/sections/countdown-bridge";
 import { About } from "@/components/sections/about";
 import { Agenda } from "@/components/sections/agenda";
 import { QuoteBand } from "@/components/sections/quote-band";
@@ -18,9 +19,10 @@ export default function Home() {
       <SiteHeader />
       <main>
         <Hero />
-        <Ticker />
         <Light />
+        <CountdownBridge />
         <About />
+        <Ticker />
         <Agenda />
         <QuoteBand />
         <District />

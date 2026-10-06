@@ -11,7 +11,7 @@ import { helpOptions, lgas, shareText } from "@/content/campaign";
 type Errors = Partial<Record<"name" | "phone" | "lga" | "form", string>>;
 
 const field =
-  "mt-2 block w-full border-0 border-b-2 border-ink/15 bg-transparent px-0 py-3 text-lg outline-none transition-colors placeholder:text-ink/30 focus:border-green-700 focus-visible:outline-none";
+  "mt-2 block w-full border-0 border-b-2 border-ink/15 bg-transparent px-0 py-3 text-lg outline-none transition-colors placeholder:text-ink/30 focus:border-gold-500 focus-visible:outline-none";
 
 export function Join() {
   const [help, setHelp] = useState<string[]>([]);
@@ -61,7 +61,7 @@ export function Join() {
     <section id="join" className="relative bg-cream">
       <div className="mx-auto grid max-w-[1400px] lg:grid-cols-12">
         {/* Pitch */}
-        <div className="grain grain-light relative overflow-hidden bg-green-800 px-5 py-20 text-white sm:px-8 sm:py-24 lg:col-span-5 lg:px-12">
+        <div className="grain grain-light relative overflow-hidden bg-brown-900 px-5 py-20 text-white sm:px-8 sm:py-24 lg:col-span-5 lg:px-12">
           <div aria-hidden className="ridges pointer-events-none absolute inset-0 text-white/[0.04]" />
           <div className="relative z-[2]">
             <SectionLabel tone="light">
@@ -99,7 +99,7 @@ export function Join() {
                 animate={{ opacity: 1, y: 0 }}
                 className="flex h-full flex-col justify-center"
               >
-                <p className="label text-green-700">Registered</p>
+                <p className="label text-gold-700">Registered</p>
                 <p className="mt-4 font-display text-[clamp(3rem,6vw,5rem)] uppercase">
                   You&rsquo;re in{firstName ? `, ${firstName}` : ""}.
                 </p>
@@ -113,7 +113,7 @@ export function Join() {
                     setStatus("idle");
                     setHelp([]);
                   }}
-                  className="mt-8 w-fit text-sm font-semibold text-green-700 underline underline-offset-4"
+                  className="mt-8 w-fit text-sm font-semibold text-brown-700 underline underline-offset-4"
                 >
                   Register someone else
                 </button>
@@ -203,7 +203,7 @@ export function Join() {
                   <button
                     type="submit"
                     disabled={status === "sending"}
-                    className="btn justify-center bg-green-700 px-8 text-white hover:bg-green-800 disabled:opacity-70"
+                    className="btn justify-center bg-gold-400 px-8 text-ink hover:bg-gold-500 disabled:opacity-70"
                   >
                     {status === "sending" ? (
                       <>
